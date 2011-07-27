@@ -200,7 +200,7 @@ Debug information is inserted in the buffer \"*IMAP4 DEBUG*\"")
 ;;; Session
 (eval-and-compile
   (luna-define-class elmo-imap4-session (elmo-network-session)
-		     (capability current-mailbox read-only flags))
+		     (capability current-mailbox current-mailbox-permaflags read-only flags))
   (luna-define-internal-accessors 'elmo-imap4-session))
 
 (defmacro elmo-imap4-session-capable-p (session capability)
