@@ -755,6 +755,12 @@ Returns response value if selecting folder succeed. "
   ;; Not used.
   )
 
+(defun elmo-imap4-permaflags-available-p (session)
+  "Return non-nil if current mailbox in SESSION supports
+permanent flags."
+  (or (null (elmo-imap4-session-current-mailbox-permaflags-internal session))
+      (member "\\*" (elmo-imap4-session-current-mailbox-permaflags-internal session))))
+
 (defun elmo-imap4-elist (folder query tags)
   (let ((session (elmo-imap4-get-session folder)))
     (elmo-imap4-session-select-mailbox
