@@ -731,6 +731,7 @@ Returns response value if selecting folder succeed. "
 	       (nth 1 (or (elmo-imap4-session-current-mailbox-permaflags-internal session)
 			  (assq 'flags response)))))
 	  (elmo-imap4-session-set-current-mailbox-internal session nil)
+	  (elmo-imap4-session-set-current-mailbox-permaflags-internal nil)
 	  (if (and (eq no-error 'notify-bye)
 		   (elmo-imap4-response-bye-p response))
 	      (elmo-imap4-process-bye session)
@@ -2163,7 +2164,8 @@ Return nil if no complete line has arrived."
 	   (list "delete "
 		 (elmo-imap4-mailbox
 		  (elmo-imap4-folder-mailbox-internal folder)))))
-	(elmo-imap4-session-set-current-mailbox-internal session nil))
+	(elmo-imap4-session-set-current-mailbox-internal session nil)
+	(elmo-imap4-session-set-current-mailbox-permaflags-internal nil))
       (elmo-msgdb-delete-path folder)
       t)))
 
@@ -2580,6 +2582,7 @@ If optional argument REMOVE is non-nil, remove FLAG."
 		     (nth 1 (or (assq 'permanentflags response)
 				(assq 'flags response)))))
 		(elmo-imap4-session-set-current-mailbox-internal session nil)
+		(elmo-imap4-session-set-current-mailbox-permaflags-internal nil)
 		(if (elmo-imap4-response-bye-p response)
 		    (elmo-imap4-process-bye session)
 		  (error "%s"
@@ -2600,9 +2603,10 @@ If optional argument REMOVE is non-nil, remove FLAG."
 	   (if (elmo-imap4-response-ok-p response)
 	       (elmo-imap4-session-set-current-mailbox-internal
 		session mailbox)
-	     (and session
+	     (when session
 		  (elmo-imap4-session-set-current-mailbox-internal
-		   session nil))))))
+		   session nil)
+		  (elmo-imap4-session-set-current-mailbox-permaflags-internal nil))))))
     (luna-call-next-method)))
 
 ;; elmo-folder-open-internal: do nothing.
