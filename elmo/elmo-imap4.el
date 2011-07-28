@@ -2017,6 +2017,9 @@ Return nil if no complete line has arrived."
 		   folder
 		   1 (1+ (or (elmo-folder-get-info-max folder) 0)))))))
 
+(luna-define-method elmo-folder-list-flagged ((folder elmo-imap4-folder) flag in-msgdb)
+  (luna-call-next-method))
+
 (luna-define-method elmo-folder-list-flagged-plugged
   ((folder elmo-imap4-folder) flag)
   (elmo-imap4-folder-list-flagged folder flag))
