@@ -2017,7 +2017,7 @@ Return nil if no complete line has arrived."
 		   folder
 		   1 (1+ (or (elmo-folder-get-info-max folder) 0)))))))
 
-(luna-define-method elmo-folder-list-flagged ((folder elmo-imap4-folder) flag in-msgdb)
+(luna-define-method elmo-folder-list-flagged :around ((folder elmo-imap4-folder) flag in-msgdb)
   (luna-call-next-method))
 
 (luna-define-method elmo-folder-list-flagged-plugged
@@ -2028,7 +2028,7 @@ Return nil if no complete line has arrived."
   (not (string-match elmo-imap4-disuse-server-flag-mailbox-regexp
 		     (elmo-imap4-folder-mailbox-internal folder))))
 
-(luna-define-method elmo-folder-merge-flagged ((folder elmo-imap4-folder) local remote)
+(luna-define-method elmo-folder-merge-flagged :around ((folder elmo-imap4-folder) local remote)
   (luna-call-next-method))
 
 (luna-define-method elmo-folder-list-subfolders ((folder elmo-imap4-folder)
