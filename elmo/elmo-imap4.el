@@ -724,9 +724,11 @@ Returns response value if selecting folder succeed. "
 	      (elmo-imap4-session-set-read-only-internal
 	       session
 	       (nth 1 (assq 'read-only (assq 'ok response))))
+	      (elmo-imap4-session-set-current-mailbox-permaflags-internal session
+	       (assq 'permanentflags response))
 	      (elmo-imap4-session-set-flags-internal
 	       session
-	       (nth 1 (or (assq 'permanentflags response)
+	       (nth 1 (or (elmo-imap4-session-current-mailbox-permaflags-internal session)
 			  (assq 'flags response)))))
 	  (elmo-imap4-session-set-current-mailbox-internal session nil)
 	  (if (and (eq no-error 'notify-bye)
