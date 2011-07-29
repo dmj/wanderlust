@@ -2032,7 +2032,9 @@ Return nil if no complete line has arrived."
 		     (elmo-imap4-folder-mailbox-internal folder))))
 
 (luna-define-method elmo-folder-merge-flagged :around ((folder elmo-imap4-folder) local remote)
-  (luna-call-next-method))
+  (if (eq elmo-imap4-sync-flag-method 'union)
+      (luna-call-next-method)
+    (luna-call-next-method)))
 
 (luna-define-method elmo-folder-list-subfolders ((folder elmo-imap4-folder)
 						 &optional one-level)
