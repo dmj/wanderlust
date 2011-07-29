@@ -99,6 +99,9 @@ REGEXP should have a grouping for namespace prefix.")
 (defvar elmo-imap4-disabled-extensions nil
   "List of server extensions that are disabled on the client side.")
 
+(defvar elmo-imap4-sync-flag-method 'union
+  "Method to use when syncing flags")
+
 ;;
 ;;; internal variables
 ;;
