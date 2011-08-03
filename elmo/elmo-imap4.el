@@ -2036,7 +2036,11 @@ Return nil if no complete line has arrived."
     (union
      (elmo-uniq-list (nconc local remote) #'delq))
     (server-to-client
-     remote)
+     (if (and (null remote)
+	      local
+	      (y-or-n-p "Folder does not contain flagged messages. Keep local flags? "))
+	 local
+       remote))
     (otherwise
      (error "Unknown method for syncing flags with IMAP folder: %s"
 	    elmo-imap4-sync-flag-method))))
