@@ -1,8 +1,3 @@
-2012-07-31  David Maus  <dmaus@ictsoc.de>
-
-	* wl-draft.el (wl-smtp-extension-bind): Declare edebug spec to aid
-	macro debugging.
-
 2012-06-11  Kazuhiro Ito  <kzhr@d1.dion.ne.jp>
 
 	* wl-draft.el: Do not define autoload for `open-ssl-stream'.
