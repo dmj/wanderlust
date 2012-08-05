@@ -393,7 +393,7 @@ or `wl-draft-reply-with-argument-list' if WITH-ARG argument is non-nil."
 		     (if decoder (funcall decoder addr) addr)))
 	     cc)))
     (setq subject (wl-draft-reply-make-subject subject))
-    (setq in-reply-to (elmo-get-message-id-from-buffer))
+    (setq in-reply-to (elmo-get-message-id-from-buffer 'none))
     (setq references (nconc
 		      (std11-field-bodies '("References" "In-Reply-To"))
 		      (list in-reply-to)))
