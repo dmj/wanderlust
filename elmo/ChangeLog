@@ -1,3 +1,8 @@
+2015-11-14  David Maus  <dmaus@ictsoc.de>
+
+	* elmo-imap4.el (elmo-imap4-send-command): Make sure that function
+	runs in session process buffer.
+
 2015-11-01  David Maus  <dmaus@ictsoc.de>
 
 	* elmo-imap4.el (elmo-imap4-send-command-enqueue): New

@@ -408,7 +408,8 @@ COMMAND is a list of command tokens or a single command token."
                  tag
                  (if (listp command) command (list command))
                  (elmo-imap4-session-capable-p session 'literal+))))
-    (when (elmo-imap4-response-bye-p elmo-imap4-current-response)
+    (with-current-buffer (elmo-network-session-buffer session)
+      (when (elmo-imap4-response-bye-p elmo-imap4-current-response)
         (elmo-imap4-process-bye session))
       (setq elmo-imap4-current-response nil)
       (elmo-imap4-session-wait-response-maybe session)
@@ -416,7 +417,7 @@ COMMAND is a list of command tokens or a single command token."
       (dolist (chunk queue)
         (cl-etypecase chunk
           (string (elmo-imap4-session-process-send-string session chunk))
-          (list (elmo-imap4-session-process-send-literal session chunk))))
+          (list (elmo-imap4-session-process-send-literal session chunk)))))
     tag))
 
 (defun elmo-imap4-session-process-send-literal (session literal)
