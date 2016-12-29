@@ -131,6 +131,9 @@ If nil, just once. If t, until success."
 (defmacro elmo-network-stream-type-function (stream-type)
   `(nth 3 ,stream-type))
 
+(defun elmo-network-session-password (session)
+  (elmo-get-passwd (elmo-network-session-password-key session)))
+
 (defsubst elmo-network-session-password-key (session)
   (format "%s:%s/%s@%s:%d"
 	  (upcase

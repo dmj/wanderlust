@@ -1060,7 +1060,7 @@ If CHOP-LENGTH is not specified, message set is not chopped."
        (list "login"
              (elmo-imap4-userid (elmo-network-session-user-internal session))
              (elmo-imap4-password
-              (elmo-get-passwd (elmo-network-session-password-key session))))))
+              (elmo-network-session-password session)))))
      (signal 'elmo-authenticate-error '(elmo-imap4-clear-login)))))
 
 (defun elmo-imap4-auth-login (session)
@@ -1075,8 +1075,7 @@ If CHOP-LENGTH is not specified, message set is not chopped."
         (signal 'elmo-authenticate-error '(elmo-imap4-auth-login)))
     (elmo-imap4-send-string session
                             (elmo-base64-encode-string
-                             (elmo-get-passwd
-                              (elmo-network-session-password-key session))))
+                             (elmo-network-session-password session)))
     (or (elmo-imap4-read-ok session tag)
         (signal 'elmo-authenticate-error '(elmo-imap4-auth-login)))
     (setq elmo-imap4-status 'auth)))
@@ -1182,8 +1181,7 @@ If CHOP-LENGTH is not specified, message set is not chopped."
 ;;;		(sasl-client-set-property client 'realm elmo-imap4-auth-user-realm))
             (setq sasl-read-passphrase
                   (lambda (prompt)
-                    (elmo-get-passwd
-                     (elmo-network-session-password-key session))))
+                    (elmo-network-session-password session)))
             (setq name (sasl-mechanism-name mechanism)
                   step (sasl-next-step client nil))
             (elmo-network-session-set-auth-internal

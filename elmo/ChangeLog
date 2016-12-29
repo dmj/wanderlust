@@ -1,3 +1,17 @@
+2016-12-29  David Maus  <dmaus@dmaus.name>
+
+	* elmo-pop3.el (elmo-pop3-auth-user, elmo-pop3-auth-apop)
+	(elmo-network-authenticate-session): Use new function.
+
+	* elmo-nntp.el (elmo-network-authenticate-session): Use new
+	function.
+
+	* elmo-imap4.el (elmo-imap4-clear-login, elmo-imap4-auth-login)
+	(elmo-network-authenticate-session): Use new function.
+
+	* elmo-net.el (elmo-network-session-password): New
+	function. Return password for network session.
+
 2016-12-18  Piotr Trojanek  <piotr.trojanek@gmail.com>
 
 	* elmo-file.el (elmo-file-detect-content-type): rewrite LET
