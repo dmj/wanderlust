@@ -1,5 +1,11 @@
 2016-12-29  David Maus  <dmaus@dmaus.name>
 
+	* elmo-net.el (elmo-network-session-password-backend): New
+	customization variable. Select password backend.
+	(elmo-network-session-auth-source-password): New function. Use
+	auth-source to retrieve password.
+	(elmo-network-session-password): Use new function.
+
 	* elmo-pop3.el (elmo-pop3-auth-user, elmo-pop3-auth-apop)
 	(elmo-network-authenticate-session): Use new function.
 

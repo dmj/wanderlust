@@ -75,6 +75,12 @@ If nil, just once. If t, until success."
 		 (const :tag "Until success" t))
   :group 'elmo)
 
+(defcustom elmo-network-session-password-backend 'elmo
+  "Network session password backend."
+  :type '(choice (const :tag "Elmo" 'elmo)
+                 (const :tag "Auth-source" 'auth-source))
+  :group 'elmo)
+
 ;;; Code:
 ;;
 (eval-and-compile
@@ -131,8 +137,22 @@ If nil, just once. If t, until success."
 (defmacro elmo-network-stream-type-function (stream-type)
   `(nth 3 ,stream-type))
 
+(defun elmo-network-session-auth-source-password (session)
+  (let ((secret (plist-get (car (auth-source-search :host (elmo-network-session-server-internal session)
+                                                    :user (elmo-network-session-user-internal session)
+                                                    :port (elmo-network-session-port-internal session)
+                                                    :require '(:secret))) :secret)))
+    (unless secret
+      (error "Unable to retrieve password for network session: %s" (elmo-network-session-password-key session)))
+    (if (functionp secret) (funcall secret) secret)))
+
 (defun elmo-network-session-password (session)
-  (elmo-get-passwd (elmo-network-session-password-key session)))
+  (cond
+   ((eq elmo-network-session-password-backend 'elmo)
+    (elmo-get-passwd (elmo-network-session-password-key session)))
+   ((eq elmo-network-session-password-backend 'auth-source)
+    (elmo-network-session-auth-source-password session))
+   (t (error "Unknown session password backend: %s" elmo-network-session-password-backend))))
 
 (defsubst elmo-network-session-password-key (session)
   (format "%s:%s/%s@%s:%d"
