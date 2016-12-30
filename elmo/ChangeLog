@@ -1,7 +1,28 @@
 2016-12-30  David Maus  <dmaus@dmaus.name>
 
+	* elmo-imap4.el (elmo-imap4-clear-login, elmo-imap4-auth-login)
+	(elmo-network-authenticate-session): Use new password functions.
+
+	* elmo-nntp.el (elmo-network-authenticate-session): Use new
+	password functions.
+
+	* elmo-pop3.el (elmo-pop3-auth-user, elmo-pop3-auth-apop)
+	(elmo-network-authenticate-session): Use new password functions.
+
+	* elmo-net.el (elmo-network-session-password-key-prefix): New
+	macro. Factored out from `elmo-network-session-password-key'.
+	(elmo-network-session-password): New function. Retrieve password.
+	(elmo-network-session-password-remove): New function. Remove
+	password.
+	(elmo-network-session-password-key): Removed.
+	(elmo-network-open-session): Use new function to remove password.
+
 	* elmo-passwd.el: New file. Classes and methods of password
 	backends.
+	(elmo-passwd-elmo-backend-key-prefix)
+	(elmo-passwd-elmo-backend-key, elmo-passwd-get)
+	(elmo-passwd-elmo-backend, elmo-passwd-remove): Dynamically scope
+	elmo backend key prefix.
 
 2016-12-18  Piotr Trojanek  <piotr.trojanek@gmail.com>
 

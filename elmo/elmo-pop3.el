@@ -267,8 +267,7 @@ CODE is one of the following:
     (elmo-pop3-send-command  process
 			     (format
 			      "pass %s"
-			      (elmo-get-passwd
-			       (elmo-network-session-password-key session)))
+                              (elmo-network-session-password session))
 			     nil 'no-log)
     (setq response (elmo-pop3-read-response process t))
     (case (car response)
@@ -294,8 +293,7 @@ CODE is one of the following:
 	    (concat (match-string
 		     1
 		     (elmo-network-session-greeting-internal session))
-		    (elmo-get-passwd
-		     (elmo-network-session-password-key session)))))
+                    (elmo-network-session-password session))))
    nil 'no-log)
   (let ((response (elmo-pop3-read-response
 		   (elmo-network-session-process-internal session)
@@ -375,8 +373,7 @@ CODE is one of the following:
 						    (intern (downcase name)))
 	    (setq sasl-read-passphrase
 		  (lambda (prompt)
-		    (elmo-get-passwd
-		     (elmo-network-session-password-key session))))
+                    (elmo-network-session-password session)))
 	    (setq step (sasl-next-step client nil))
 	    (elmo-pop3-send-command
 	     process

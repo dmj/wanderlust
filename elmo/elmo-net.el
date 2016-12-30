@@ -31,6 +31,7 @@
 (eval-when-compile (require 'cl))
 
 (require 'elmo-util)
+(require 'elmo-passwd)
 (require 'elmo-dop)
 (require 'elmo-vars)
 (require 'elmo-cache)
@@ -131,15 +132,25 @@ If nil, just once. If t, until success."
 (defmacro elmo-network-stream-type-function (stream-type)
   `(nth 3 ,stream-type))
 
-(defsubst elmo-network-session-password-key (session)
-  (format "%s:%s/%s@%s:%d"
-	  (upcase
-	   (nth 1 (split-string (symbol-name
-				 (luna-class-name session)) "[4-]")))
-	  (elmo-network-session-user-internal session)
-	  (elmo-network-session-auth-internal session)
-	  (elmo-network-session-server-internal session)
-	  (elmo-network-session-port-internal session)))
+(defmacro elmo-network-session-password-key-prefix (session)
+  `(upcase (nth 1 (split-string (symbol-name
+				 (luna-class-name ,session)) "[4-]"))))
+
+(defun elmo-network-session-password (session)
+  (let ((elmo-passwd-elmo-backend-key-prefix (elmo-network-session-password-key-prefix session)))
+    (elmo-passwd-get elmo-passwd-backend
+                     (elmo-network-session-user-internal session)
+                     (elmo-network-session-server-internal session)
+                     (elmo-network-session-port-internal session)
+                     (elmo-network-session-auth-internal session))))
+
+(defun elmo-network-session-password-remove (session)
+  (let ((elmo-passwd-elmo-backend-key-prefix (elmo-network-session-password-key-prefix session)))
+    (elmo-passwd-remove elmo-passwd-backend
+                        (elmo-network-session-user-internal session)
+                        (elmo-network-session-server-internal session)
+                        (elmo-network-session-port-internal session)
+                        (elmo-network-session-auth-internal session))))
 
 (defvar elmo-network-session-cache nil)
 
@@ -276,7 +287,7 @@ Returns a process object.  if making session failed, returns nil."
 	    (elmo-network-setup-session session)
 	    (setq success t))
 	(elmo-authenticate-error
-	 (elmo-remove-passwd (elmo-network-session-password-key session))
+         (elmo-network-session-password-remove session)
 	 (message "Authetication is failed")
 	 (sit-for 1)
 	 (elmo-network-close-session session)

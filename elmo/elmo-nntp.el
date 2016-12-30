@@ -314,7 +314,7 @@ Don't cache if nil.")
       (elmo-nntp-send-command
        session
        (format "authinfo pass %s"
-	       (elmo-get-passwd (elmo-network-session-password-key session)))
+               (elmo-network-session-password session))
        nil
        'no-log)
       (or (elmo-nntp-read-response session)
