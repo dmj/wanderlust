@@ -2,6 +2,8 @@
 
 	* wl-draft.el (wl-smtp-extension-bind)
 	(wl-draft-send-mail-with-smtp): Use new password functions.
+	(wl-draft-send-mail-with-smtp, wl-smtp-extension-bind): Use
+	function to retrieve password backend instance.
 
 2016-12-18  Piotr Trojanek  <piotr.trojanek@gmail.com>
 

@@ -157,7 +157,7 @@ e.g.
 	   (function
 	    (lambda (prompt)
               (let ((elmo-passwd-elmo-backend-key-prefix "SMTP"))
-                (elmo-passwd-get elmo-passwd-backend smtp-sasl-user-name smtp-server smtp-service (car smtp-sasl-mechanisms))))))
+                (elmo-passwd-get (elmo-passwd-backend) smtp-sasl-user-name smtp-server smtp-service (car smtp-sasl-mechanisms))))))
      ,@body))
 
 (def-edebug-spec wl-smtp-extension-bind (body))
@@ -1098,7 +1098,7 @@ non-nil."
 		     (if (and (eq (car err) 'smtp-response-error)
 			      (= (nth 1 err) 535))
                          (let ((elmo-passwd-elmo-backend-key-prefix "SMTP"))
-x                           (elmo-passwd-remove elmo-passwd-backend smtp-sasl-user-name smtp-server nil (car smtp-sasl-mechanisms))))
+                           (elmo-passwd-remove (elmo-passwd-backend) smtp-sasl-user-name smtp-server nil (car smtp-sasl-mechanisms))))
 		     (signal (car err) (cdr err)))
 		    (quit
 		     (wl-draft-write-sendlog 'uncertain 'smtp smtp-server

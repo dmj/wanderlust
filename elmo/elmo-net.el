@@ -138,7 +138,7 @@ If nil, just once. If t, until success."
 
 (defun elmo-network-session-password (session)
   (let ((elmo-passwd-elmo-backend-key-prefix (elmo-network-session-password-key-prefix session)))
-    (elmo-passwd-get elmo-passwd-backend
+    (elmo-passwd-get (elmo-passwd-backend)
                      (elmo-network-session-user-internal session)
                      (elmo-network-session-server-internal session)
                      (elmo-network-session-port-internal session)
@@ -146,7 +146,7 @@ If nil, just once. If t, until success."
 
 (defun elmo-network-session-password-remove (session)
   (let ((elmo-passwd-elmo-backend-key-prefix (elmo-network-session-password-key-prefix session)))
-    (elmo-passwd-remove elmo-passwd-backend
+    (elmo-passwd-remove (elmo-passwd-backend)
                         (elmo-network-session-user-internal session)
                         (elmo-network-session-server-internal session)
                         (elmo-network-session-port-internal session)

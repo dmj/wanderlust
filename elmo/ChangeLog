@@ -1,5 +1,9 @@
 2016-12-30  David Maus  <dmaus@dmaus.name>
 
+	* elmo-net.el (elmo-network-session-password-remove)
+	(elmo-network-session-password): Use new function to retrieve
+	backend instance.
+
 	* elmo-passwd.el (elmo-passwd-backend): New function. Return
 	password backend.
 
