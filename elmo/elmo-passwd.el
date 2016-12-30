@@ -42,7 +42,7 @@
   "Remove password for USER on HOST:PORT using AUTH.")
 
 ;; ELMO password store
-(luna-define-class elmo-passwd-elmo-backend (elmo-passwd-backend) (type))
+(luna-define-class elmo-passwd-elmo-backend (elmo-passwd-backend))
 (luna-define-internal-accessors 'elmo-passwd-elmo-backend)
 
 (luna-define-method initialize-instance :after ((backend elmo-passwd-elmo-backend) &rest init-args)
@@ -50,16 +50,23 @@
   backend)
 
 (luna-define-method elmo-passwd-get ((backend elmo-passwd-elmo-backend) user host port auth)
-  (elmo-get-passwd (elmo-passwd-elmo-backend-key (elmo-passwd-elmo-backend-type-internal backend) user host port auth)))
+  (elmo-get-passwd (elmo-passwd-elmo-backend-key user host port auth)))
 
 (luna-define-method elmo-passwd-forget ((backend elmo-passwd-elmo-backend))
   (elmo-passwd-alist-clear))
 
 (luna-define-method elmo-passwd-remove ((backend elmo-passwd-elmo-backend) user host port auth)
-  (elmo-remove-passwd (elmo-passwd-elmo-backend-key (elmo-passwd-elmo-backend-type-internal backend) user host port auth)))
+  (elmo-remove-passwd (elmo-passwd-elmo-backend-key user host port auth)))
 
-(defun elmo-passwd-elmo-backend-key (type user host port auth)
-  (format "%s:%s/%s@%s" type user auth
+(defvar elmo-passwd-elmo-backend-key-prefix nil
+  "Prefix of elmo passwd backend keys.
+This variable is expected to be dynamically bound before a call
+to methods of the elmo backend.")
+
+(defvar elmo-passwd-backend nil)
+
+(defun elmo-passwd-elmo-backend-key (user host port auth)
+  (format "%s:%s/%s@%s" elmo-passwd-elmo-backend-key-prefix user auth
           (if port (format "%s:%d" host port) host)))
 
 (provide 'elmo-passwd)
