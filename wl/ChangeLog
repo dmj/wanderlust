@@ -1,3 +1,8 @@
+2016-12-30  David Maus  <dmaus@dmaus.name>
+
+	* wl-draft.el (wl-smtp-extension-bind)
+	(wl-draft-send-mail-with-smtp): Use new password functions.
+
 2016-12-18  Piotr Trojanek  <piotr.trojanek@gmail.com>
 
 	* wl-mime.el (wl-mime-pgp-decrypt-region): fix grammar in message
