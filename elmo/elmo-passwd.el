@@ -20,7 +20,7 @@
 
 ;;; Commentary:
 
-;; 
+;; TODO: Implement `elmo-passwd-save' for both backends
 
 ;;; Code:
 
@@ -40,6 +40,30 @@
 
 (luna-define-generic elmo-passwd-remove (backend user host port auth)
   "Remove password for USER on HOST:PORT using AUTH.")
+
+;; Auth-source passord store
+(luna-define-class elmo-passwd-auth-source-backend (elmo-passwd-backend))
+(luna-define-internal-accessors 'elmo-passwd-auth-source-backend)
+
+(luna-define-method elmo-passwd-get ((backend elmo-passwd-auth-source-backend) user host port auth)
+  (let ((sources (auth-source-search :user (or user t)
+                                     :host (or host t)
+                                     :port (or port t)
+                                     :require '(:secret))))
+    (let ((secret (plist-get (car sources) :secret)))
+      (unless secret
+        (error "Unable to find password for %s@%s" user host))
+      (if (functionp secret)
+          (funcall secret)
+        secret))))
+
+(luna-define-method elmo-passwd-forget ((backend elmo-passwd-auth-source-backend))
+  (auth-source-forget-all-cached))
+
+(luna-define-method elmo-passwd-remove ((backend elmo-passwd-elmo-backend) user host port auth)
+  (auth-source-delete :user (or user t)
+                      :host (or host t)
+                      :port (or port t)))
 
 ;; ELMO password store
 (luna-define-class elmo-passwd-elmo-backend (elmo-passwd-backend))

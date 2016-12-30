@@ -1,5 +1,10 @@
 2016-12-30  David Maus  <dmaus@dmaus.name>
 
+	* elmo-passwd.el (elmo-passwd-auth-source-backend): New
+	class. Auth-source backend.
+	(elmo-passwd-get, elmo-passwd-forget, elmo-passwd-remove):
+	Implement methods for auth-source backend.
+
 	* elmo-net.el (elmo-network-session-password-remove)
 	(elmo-network-session-password): Use new function to retrieve
 	backend instance.
