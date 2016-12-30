@@ -4,6 +4,7 @@
 	class. Auth-source backend.
 	(elmo-passwd-get, elmo-passwd-forget, elmo-passwd-remove):
 	Implement methods for auth-source backend.
+	(elmo-passwd-remove): Fix typo in argument specifier.
 
 	* elmo-net.el (elmo-network-session-password-remove)
 	(elmo-network-session-password): Use new function to retrieve

@@ -60,7 +60,7 @@
 (luna-define-method elmo-passwd-forget ((backend elmo-passwd-auth-source-backend))
   (auth-source-forget-all-cached))
 
-(luna-define-method elmo-passwd-remove ((backend elmo-passwd-elmo-backend) user host port auth)
+(luna-define-method elmo-passwd-remove ((backend elmo-passwd-auth-source-backend) user host port auth)
   (auth-source-delete :user (or user t)
                       :host (or host t)
                       :port (or port t)))
