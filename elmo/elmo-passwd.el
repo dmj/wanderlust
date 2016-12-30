@@ -65,6 +65,11 @@ to methods of the elmo backend.")
 
 (defvar elmo-passwd-backend nil)
 
+(defun elmo-passwd-backend ()
+  (unless elmo-passwd-backend
+    (setq elmo-passwd-backend (luna-make-entity 'elmo-passwd-elmo-backend)))
+  elmo-passwd-backend)
+
 (defun elmo-passwd-elmo-backend-key (user host port auth)
   (format "%s:%s/%s@%s" elmo-passwd-elmo-backend-key-prefix user auth
           (if port (format "%s:%d" host port) host)))

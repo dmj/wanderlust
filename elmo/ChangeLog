@@ -1,5 +1,8 @@
 2016-12-30  David Maus  <dmaus@dmaus.name>
 
+	* elmo-passwd.el (elmo-passwd-backend): New function. Return
+	password backend.
+
 	* elmo-imap4.el (elmo-imap4-clear-login, elmo-imap4-auth-login)
 	(elmo-network-authenticate-session): Use new password functions.
 
