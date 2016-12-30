@@ -1,3 +1,8 @@
+2016-12-30  David Maus  <dmaus@dmaus.name>
+
+	* elmo-passwd.el: New file. Classes and methods of password
+	backends.
+
 2016-12-18  Piotr Trojanek  <piotr.trojanek@gmail.com>
 
 	* elmo-file.el (elmo-file-detect-content-type): rewrite LET
